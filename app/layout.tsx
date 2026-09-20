@@ -11,7 +11,7 @@ const mono = JetBrains_Mono({
 });
 
 const myanmar = Noto_Sans_Myanmar({
-  subsets: ["latin"],
+  subsets: ["myanmar"],
   variable: "--font-mm",
   weight: ["400", "600"],
 });
