@@ -1,9 +1,10 @@
 backend:
   name: github
-  repo: letyarworks/aungbobokyaw-website # ⚠️ change this if your repo name is different
+  repo: letyarworks/aungbobokyaw-website
   branch: main
-  base_url: https://aungbobokyaw.com
+  base_url: https://www.aungbobokyaw.com
   auth_endpoint: api/auth
+  site_domain: www.aungbobokyaw.com
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
