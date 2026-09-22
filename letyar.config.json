@@ -1,0 +1,8 @@
+{
+  "name": "aungbobokyaw-website",
+  "type": "personal-site",
+  "framework": "next",
+  "version": "1.0.0",
+  "org": "letyarworks",
+  "domain": "aungbobokyaw.com"
+}
