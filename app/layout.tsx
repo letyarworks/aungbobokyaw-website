@@ -17,30 +17,9 @@ const myanmar = Noto_Sans_Myanmar({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aungbobokyaw.com"),
-  title: {
-    default: "Aung Bo Bo Kyaw — Technician, builder, founder of Letyar Labs",
-    template: "%s — Aung Bo Bo Kyaw",
-  },
+  title: "Aung Bo Bo Kyaw — Technician, builder, founder of Letyar Labs",
   description:
     "Aung Bo Bo Kyaw's personal site — writing, training, and the path from electronics repair technician to product builder.",
-  alternates: {
-    types: { "application/rss+xml": "/feed.xml" },
-  },
-  openGraph: {
-    type: "website",
-    siteName: "Aung Bo Bo Kyaw",
-    title: "Aung Bo Bo Kyaw — Technician, builder, founder of Letyar Labs",
-    description:
-      "Writing, training, and the path from electronics repair technician to product builder.",
-    url: "https://aungbobokyaw.com",
-  },
-  twitter: {
-    card: "summary",
-    title: "Aung Bo Bo Kyaw",
-    description:
-      "Writing, training, and the path from electronics repair technician to product builder.",
-  },
 };
 
 export default function RootLayout({

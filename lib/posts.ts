@@ -12,10 +12,9 @@ export type PostMeta = {
   summary: string;
   tags: string[];
   cover?: string;
-  readingTime: string;
 };
 
-export type Post = PostMeta & { html: string; readingTime: string };
+export type Post = PostMeta & { html: string };
 
 function readSlugs(): string[] {
   if (!fs.existsSync(POSTS_DIR)) return [];
@@ -29,9 +28,7 @@ export function getAllPosts(): PostMeta[] {
   return readSlugs()
     .map((slug) => {
       const raw = fs.readFileSync(path.join(POSTS_DIR, `${slug}.md`), "utf8");
-      const { data, content } = matter(raw);
-      const words = content.trim().split(/\s+/).filter(Boolean).length;
-      const minutes = Math.max(1, Math.round(words / 200));
+      const { data } = matter(raw);
       return {
         slug,
         title: data.title ?? slug,
@@ -39,7 +36,6 @@ export function getAllPosts(): PostMeta[] {
         summary: data.summary ?? "",
         tags: data.tags ?? [],
         cover: data.cover,
-        readingTime: `${minutes} min read`,
       };
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -50,8 +46,6 @@ export function getPost(slug: string): Post | undefined {
   if (!fs.existsSync(file)) return undefined;
   const raw = fs.readFileSync(file, "utf8");
   const { data, content } = matter(raw);
-  const words = content.trim().split(/\s+/).filter(Boolean).length;
-  const minutes = Math.max(1, Math.round(words / 200));
   return {
     slug,
     title: data.title ?? slug,
@@ -59,7 +53,6 @@ export function getPost(slug: string): Post | undefined {
     summary: data.summary ?? "",
     tags: data.tags ?? [],
     cover: data.cover,
-    readingTime: `${minutes} min read`,
     html: marked.parse(content, { async: false }) as string,
   };
 }
