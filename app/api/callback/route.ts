@@ -9,10 +9,12 @@ export async function GET(req: NextRequest) {
     return new NextResponse("Missing code or OAuth environment variables.", { status: 400 });
   }
 
+  const redirectUri = `${req.nextUrl.origin}/api/callback`;
+
   const tokenRes = await fetch("https://github.com/login/oauth/access_token", {
     method: "POST",
     headers: { "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify({ client_id: clientId, client_secret: clientSecret, code }),
+    body: JSON.stringify({ client_id: clientId, client_secret: clientSecret, code, redirect_uri: redirectUri }),
   });
   const tokenData = await tokenRes.json();
 
@@ -20,10 +22,8 @@ export async function GET(req: NextRequest) {
     return new NextResponse(`OAuth error: ${tokenData.error_description ?? "unknown error"}`, { status: 400 });
   }
 
-  const payload = JSON.stringify({ token: tokenData.access_token, provider: "github" }).replace(/'/g, "\\'");
+  const payload = JSON.stringify({ token: tokenData.access_token, provider: "github" }).replace(/\x27/g, "\\x27");
 
-  // Standard Decap/Netlify CMS popup handshake: reply to the opener window
-  // once it signals "authorizing:github", then hand back the token.
   const html = `<!doctype html>
 <html><body>
 <script>
